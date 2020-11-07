@@ -176,10 +176,13 @@ COMPONENTS
 }
 
 .filter-tag__remove {
+  height: 100%;
   text-decoration: none;
-  padding: 0.7em 0.7em 0.3em;
-  background-color: #5ba4a4;
+  padding: 1em 1.2em;
   color: #fff;
+  background: url(../images/icon-remove.svg) no-repeat;
+  background-color: #5ba4a4;
+  background-position: center;
 }
 
 .filter-tag__remove:hover {

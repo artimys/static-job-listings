@@ -216,7 +216,8 @@ const jobListingsContainer = document.getElementById("jobListingsContainer");
 
 
 filterContainer.addEventListener("click", function(event) {
-    if (["filter-tag__remove-icon", "filter-tag__remove"].includes(event.target.className) ) {
+    // if (["filter-tag__remove-icon", "filter-tag__remove"].includes(event.target.className) ) {
+    if (event.target.className === "filter-tag__remove") {
         let filterTagNode = event.target.closest("div.filter-tag");
         let filterName = filterTagNode.dataset.filter;
 
@@ -258,7 +259,7 @@ jobListingsContainer.addEventListener("click", function(event) {
         // Find if filter is already applied
         if (appliedFilters.includes(filterNameSelected)) {
             // Filter already added
-            console.log("Already added: ", filterNameSelected);
+            // console.log("Already added: ", filterNameSelected);
             // TODO Popup message that filter is already applied
 
         } else {
@@ -286,9 +287,7 @@ function displayFilter(filterName) {
     document.getElementById("filterList").insertAdjacentHTML("beforeend", `
       <div class="filter-tag" data-filter="${filterName}">
         <span class="filter-tag__name">${filterName}</span>
-        <a class="filter-tag__remove" href="#" title="Remove">
-          <img class="filter-tag__remove-icon" alt="Remove" src="images/icon-remove.svg" />
-        </a>
+        <a class="filter-tag__remove" href="#" title="Remove"></a>
       </div>
     `);
 }
@@ -349,7 +348,6 @@ function searchJobs() {
     // If so then show all results
     if (!Array.isArray(appliedFilters) || !appliedFilters.length) {
         loadJobs(jobPosts);
-        console.log("no filters, show all");
         return
     }
 
@@ -360,7 +358,6 @@ function searchJobs() {
         return appliedFilters.every( tag => job.tags.includes(tag) );
     });
 
-console.log("found: ", filteredJobs.length);
     // Display filtered results
     loadJobs(filteredJobs);
 }
