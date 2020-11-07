@@ -22,6 +22,9 @@ $page-radius: 5px;
 $company-logo-size-mobile: 46px;
 $company-logo-size-desktop: 86px;
 
+$filter-tag-row-gap: 0.9em;
+$filter-tag-column-gap: 0.9em;
+
 /*==========
 DEFAULTS
 =========*/
@@ -142,6 +145,10 @@ COMPONENTS
         // Adjust vertical position of tags
         display: flex;
         align-items: center;
+
+        // Spacing between sibling tags
+        row-gap: $filter-tag-row-gap;
+        column-gap: $filter-tag-column-gap;
     }
 }
 
@@ -156,14 +163,6 @@ COMPONENTS
     // Vert align name and remove elements
     display: inline-flex;
     align-items: center;
-
-    // Spacing between sibling tags
-    margin-right: 10px;
-    margin-bottom: 15px;
-    &:last-child {
-        margin-right: 0;
-        margin-bottom: 0;
-    }
 
     &__name {
         text-decoration: none;
@@ -221,12 +220,18 @@ LAYOUT
         margin-bottom: 3em;
     }
 
-    // Set list and options to row
+    // Set list and options containers to row
     display: flex;
     column-gap: 1.5em;
 
     &__list {
         flex: 1;
+
+        // Align the flow of the filter tags
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: $filter-tag-row-gap;
+        column-gap: $filter-tag-column-gap;
     }
     &__options {
         display: inline-flex;
@@ -301,12 +306,6 @@ DESKTOP
 
         &__filters {
             justify-content: flex-end;
-        }
-    }
-
-    .filter-tag {
-        &:last-child {
-            margin-bottom: 15px; // TODO - find better solution
         }
     }
 

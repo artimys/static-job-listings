@@ -149,6 +149,9 @@ COMPONENTS
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  row-gap: 0.9em;
+  -webkit-column-gap: 0.9em;
+          column-gap: 0.9em;
 }
 
 .filter-tag {
@@ -163,13 +166,6 @@ COMPONENTS
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-right: 10px;
-  margin-bottom: 15px;
-}
-
-.filter-tag:last-child {
-  margin-right: 0;
-  margin-bottom: 0;
 }
 
 .filter-tag__name {
@@ -237,6 +233,14 @@ LAYOUT
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  row-gap: 0.9em;
+  -webkit-column-gap: 0.9em;
+          column-gap: 0.9em;
 }
 
 .filters__options {
@@ -324,9 +328,6 @@ DESKTOP
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
-  }
-  .filter-tag:last-child {
-    margin-bottom: 15px;
   }
   .bg {
     background-image: url(../images/bg-header-desktop.svg);
