@@ -13,38 +13,38 @@
 <body>
   <div class="bg"></div>
 
-  <header class="filters filters--active">
-
-    <div class="filters__list">
+  <header id="filterContainer" class="filters filters--active-">
+    <div id="filterList" class="filters__list">
+<!--
       <div class="filter-tag">
         <span class="filter-tag__name">Frontend</span>
         <a class="filter-tag__remove" href="#" title="Remove">
-          <img alt="Remove" src="images/icon-remove.svg" />
+          <img class="filter-tag__remove-icon" alt="Remove" src="images/icon-remove.svg" />
         </a>
       </div>
 
       <div class="filter-tag">
         <span class="filter-tag__name">CSS</span>
         <a class="filter-tag__remove" href="#" title="Remove">
-          <img alt="Remove" src="images/icon-remove.svg" />
+          <img class="filter-tag__remove-icon" alt="Remove" src="images/icon-remove.svg" />
         </a>
       </div>
 
       <div class="filter-tag">
         <span class="filter-tag__name">JavaScript</span>
         <a class="filter-tag__remove" href="#" title="Remove">
-          <img alt="Remove" src="images/icon-remove.svg" />
+          <img class="filter-tag__remove-icon" alt="Remove" src="images/icon-remove.svg" />
         </a>
       </div>
+-->
     </div>
-
     <div class="filters__options">
-        <a class="filters__clear" href="#" title="Clear">Clear</a>
+        <a id="clearAllFilters" class="filters__clear" href="#" title="Clear">Clear</a>
     </div>
 
   </header>
 
-  <main id="job-listings">
+  <main id="jobListingsContainer">
   </main>
 
 

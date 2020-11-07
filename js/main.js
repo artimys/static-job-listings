@@ -162,7 +162,7 @@ const jobPosts = [
             "Fullstack",
             "Midweight",
             "JavaScript",
-            "Phython",
+            "Python",
             "Django"
         ]
     },
@@ -186,8 +186,112 @@ const jobPosts = [
         ]
     },
 ]
+const allFilters = [
+    "Backend",
+    "CSS",
+    "Django",
+    "Frontend",
+    "Fullstack",
+    "HTML",
+    "JavaScript",
+    "Junior",
+    "Midweight",
+    "Python",
+    "React",
+    "RoR",
+    "Ruby",
+    "Sass",
+    "Senior",
+    "Vue"
+];
+let appliedFilters = [];
 
-const jobListingsContainer = document.getElementById("job-listings");
+// Filter elements
+const filterContainer = document.getElementById("filterContainer");
+const filterList = document.getElementById("filterList");
+const clearAllFilters = document.getElementById("clearAllFilters");
+
+// Job listing elements
+const jobListingsContainer = document.getElementById("jobListingsContainer");
+
+
+filterContainer.addEventListener("click", function(event) {
+    if (["filter-tag__remove-icon", "filter-tag__remove"].includes(event.target.className) ) {
+        let filterTagNode = event.target.closest("div.filter-tag");
+        let filterName = filterTagNode.dataset.filter;
+
+        // Delete .filter-tag node
+        filterTagNode.remove();
+
+        // Remove from appliedFilters array
+        let filterIndex = appliedFilters.indexOf(filterName);
+        if (filterIndex > -1) {
+            appliedFilters.splice(filterIndex, 1);
+        }
+
+        // Check if filters are empty
+        if (!Array.isArray(appliedFilters) || !appliedFilters.length) {
+            filterContainer.classList.remove("filters--active");
+        }
+
+        // Run search again
+        searchJobs();
+    }
+});
+
+clearAllFilters.addEventListener("click", function() {
+    // Reset everything
+    filterContainer.classList.remove("filters--active");
+    filterList.innerHTML = "";
+    appliedFilters = [];
+
+    // Load all jobs
+    loadJobs(jobPosts);
+});
+
+jobListingsContainer.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    if (event.target.className === "filter-tag__name") {
+        let filterNameSelected = event.target.text;
+
+        // Find if filter is already applied
+        if (appliedFilters.includes(filterNameSelected)) {
+            // Filter already added
+            console.log("Already added: ", filterNameSelected);
+            // TODO Popup message that filter is already applied
+
+        } else {
+
+            // New filter to add but first check if #filterContainer is visibile
+            if (!filterContainer.classList.contains("filters--active")) {
+                filterContainer.classList.add("filters--active");
+            }
+
+            // Add filter to list
+            appliedFilters.push(filterNameSelected);
+
+            // Show filter in #filterContainer container
+            displayFilter(filterNameSelected)
+
+            // Run search again
+            searchJobs();
+        }
+    }
+});
+
+
+
+function displayFilter(filterName) {
+    document.getElementById("filterList").insertAdjacentHTML("beforeend", `
+      <div class="filter-tag" data-filter="${filterName}">
+        <span class="filter-tag__name">${filterName}</span>
+        <a class="filter-tag__remove" href="#" title="Remove">
+          <img class="filter-tag__remove-icon" alt="Remove" src="images/icon-remove.svg" />
+        </a>
+      </div>
+    `);
+}
 
 function displayJobPost(job) {
     let activeClass = "";
@@ -240,13 +344,35 @@ function displayJobPost(job) {
     `);
 }
 
+function searchJobs() {
+    // Check if filters empty
+    // If so then show all results
+    if (!Array.isArray(appliedFilters) || !appliedFilters.length) {
+        loadJobs(jobPosts);
+        console.log("no filters, show all");
+        return
+    }
 
+    // Otherwise time to filter some jobs
 
-function loadJobs() {
-    jobPosts.forEach( job => displayJobPost(job) );
+    // Array to hold filtered jobs
+    let filteredJobs = jobPosts.filter(function(job) {
+        return appliedFilters.every( tag => job.tags.includes(tag) );
+    });
+
+console.log("found: ", filteredJobs.length);
+    // Display filtered results
+    loadJobs(filteredJobs);
+}
+
+function loadJobs(jobs) {
+    // Remove current results from page
+    jobListingsContainer.innerHTML = "";
+
+    // Loop through results and display job on page
+    jobs.forEach( job => displayJobPost(job) );
 }
 
 
-
 // Add all job posts on page load
-loadJobs();
+loadJobs(jobPosts);
