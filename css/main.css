@@ -37,6 +37,8 @@ COMPONENTS
   -webkit-box-shadow: 0 15px 30px -10px rgba(91, 164, 164, 0.4);
           box-shadow: 0 15px 30px -10px rgba(91, 164, 164, 0.4);
   padding: 2.1em 2.5em 2.1em 2.3em;
+  -webkit-animation: slideIn 900ms;
+          animation: slideIn 900ms;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -44,6 +46,32 @@ COMPONENTS
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    -webkit-transform: translateX(-60px);
+            transform: translateX(-60px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    -webkit-transform: translateX(-60px);
+            transform: translateX(-60px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 1;
+  }
 }
 
 .listing--active {

@@ -58,6 +58,18 @@ COMPONENTS
     border-radius: $page-radius;
     box-shadow: 0 15px 30px -10px $desaturated-dark-cyan-opacity;
     padding: 2.1em 2.5em 2.1em 2.3em;
+    animation: slideIn 900ms;
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(-60px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0px);
+            opacity: 1;
+        }
+    }
 
     display: flex;
     flex-direction: column;
