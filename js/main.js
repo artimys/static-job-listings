@@ -1,6 +1,5 @@
 const jobPosts = [
     {
-        "id": 1,
         "image": "photosnap.svg",
         "company": "Photosnap",
         "new": true,
@@ -19,7 +18,6 @@ const jobPosts = [
     },
 
     {
-        "id": 2,
         "image": "manage.svg",
         "company": "Manage",
         "new": true,
@@ -37,7 +35,6 @@ const jobPosts = [
     },
 
     {
-        "id": 3,
         "image": "account.svg",
         "company": "Account",
         "new": true,
@@ -56,7 +53,6 @@ const jobPosts = [
     },
 
     {
-        "id": 4,
         "image": "myhome.svg",
         "company": "MyHome",
         "new": false,
@@ -74,7 +70,6 @@ const jobPosts = [
     },
 
     {
-        "id": 5,
         "image": "loop-studios.svg",
         "company": "Loop Studios",
         "new": false,
@@ -93,7 +88,6 @@ const jobPosts = [
     },
 
     {
-        "id": 6,
         "image": "faceit.svg",
         "company": "FaceIt",
         "new": false,
@@ -111,7 +105,6 @@ const jobPosts = [
     },
 
     {
-        "id": 7,
         "image": "shortly.svg",
         "company": "Shortly",
         "new": false,
@@ -130,7 +123,6 @@ const jobPosts = [
     },
 
     {
-        "id": 8,
         "image": "insure.svg",
         "company": "Insure",
         "new": false,
@@ -149,7 +141,6 @@ const jobPosts = [
     },
 
     {
-        "id": 9,
         "image": "eyecam-co.svg",
         "company": "Eyecam Co.",
         "new": false,
@@ -168,7 +159,6 @@ const jobPosts = [
     },
 
     {
-        "id": 10,
         "image": "the-air-filter-company.svg",
         "company": "The Air Filter Company",
         "new": false,
@@ -216,10 +206,9 @@ const jobListingsContainer = document.getElementById("jobListingsContainer");
 
 
 filterContainer.addEventListener("click", function(event) {
-    // if (["filter-tag__remove-icon", "filter-tag__remove"].includes(event.target.className) ) {
     if (event.target.className === "filter-tag__remove") {
         let filterTagNode = event.target.closest("div.filter-tag");
-        let filterName = filterTagNode.dataset.filter;
+        let filterName = filterTagNode.dataset.filter.trim();
 
         // Delete .filter-tag node
         filterTagNode.remove();
@@ -254,7 +243,7 @@ jobListingsContainer.addEventListener("click", function(event) {
     event.preventDefault();
 
     if (event.target.className === "filter-tag__name") {
-        let filterNameSelected = event.target.text;
+        let filterNameSelected = event.target.parentElement.dataset.filter.trim();
 
         // Find if filter is already applied
         if (appliedFilters.includes(filterNameSelected)) {
@@ -263,11 +252,6 @@ jobListingsContainer.addEventListener("click", function(event) {
             // TODO Popup message that filter is already applied
 
         } else {
-
-            // New filter to add but first check if #filterContainer is visibile
-            if (!filterContainer.classList.contains("filters--active")) {
-                filterContainer.classList.add("filters--active");
-            }
 
             // Add filter to list
             appliedFilters.push(filterNameSelected);
@@ -284,6 +268,11 @@ jobListingsContainer.addEventListener("click", function(event) {
 
 
 function displayFilter(filterName) {
+    // New filter to add but first check if #filterContainer is visibile
+    if (!filterContainer.classList.contains("filters--active")) {
+        filterContainer.classList.add("filters--active");
+    }
+
     document.getElementById("filterList").insertAdjacentHTML("beforeend", `
       <div class="filter-tag" data-filter="${filterName}">
         <span class="filter-tag__name">${filterName}</span>
@@ -294,36 +283,38 @@ function displayFilter(filterName) {
 
 function displayJobPost(job) {
     let activeClass = "";
-    let statusBadges = "";
-    let tags = [];
+    let statusBadgesHTML = "";
+    let tagsHTML = [];
 
     // Determine if job post is new or featured
     if (job.new && job.featured) {
         activeClass = " listing--active"
     }
     if (job.new) {
-        statusBadges = `<span class="listing__status listing__status--new">NEW!</span>`
+        statusBadgesHTML = `<span class="listing__status listing__status--new">NEW!</span>`
     }
     if (job.featured) {
-        statusBadges += `<span class="listing__status listing__status--featured">FEATURED</span>`
+        statusBadgesHTML += `<span class="listing__status listing__status--featured">FEATURED</span>`
     }
 
     // Collect all tags
     for (let i = 0; i < job.tags.length; i++) {
-        tags[i] = `<div class="filter-tag">
-                        <a class="filter-tag__name" href="#" title="${job.tags[i]}">${job.tags[i]}</a>
+        let filterName = job.tags[i];
+
+        tagsHTML[i] = `<div class="filter-tag" data-filter="${filterName}">
+                        <a class="filter-tag__name" href="#" title="${filterName}">${filterName}</a>
                     </div>`;
     }
 
     jobListingsContainer.insertAdjacentHTML("beforeend", `
-        <section id="listing-${job.id}" class="listing${activeClass}">
+        <section class="listing${activeClass}">
             <div class="listing__logo">
                 <img alt="${job.company}" src="images/${job.image}" />
             </div>
             <div class="listing__content">
                 <div class="listing__top">
                     <small class="listing__company">${job.company}</small>
-                    ${statusBadges}
+                    ${statusBadgesHTML}
                 </div>
                 <div class="listing__middle">
                     <a href="#" title="${job.title}" class="listing__position">${job.title}</a>
@@ -337,7 +328,7 @@ function displayJobPost(job) {
                 </div>
             </div>
             <div class="listing__filters">
-                ${tags.join('')}
+                ${tagsHTML.join('')}
             </div>
         </section>
     `);
@@ -348,9 +339,8 @@ function searchJobs() {
     // If so then show all results
     if (!Array.isArray(appliedFilters) || !appliedFilters.length) {
         loadJobs(jobPosts);
-        return
+        return;
     }
-
     // Otherwise time to filter some jobs
 
     // Array to hold filtered jobs
@@ -371,5 +361,10 @@ function loadJobs(jobs) {
 }
 
 
-// Add all job posts on page load
-loadJobs(jobPosts);
+
+window.addEventListener('load', (event) => {
+    // Page is fully loaded
+
+    // Add all job posts on page load
+    loadJobs(jobPosts);
+});
