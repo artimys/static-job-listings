@@ -44,7 +44,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    // justify-content: center;
 }
 
 
@@ -58,7 +57,7 @@ COMPONENTS
     background-color: white;
     border-radius: $page-radius;
     box-shadow: 0 15px 30px -10px $desaturated-dark-cyan-opacity;
-    padding: 1.8em;
+    padding: 2.1em 2.5em 2.1em 2.3em;
 
     display: flex;
     flex-direction: column;
@@ -95,17 +94,17 @@ COMPONENTS
     &__company {
         color: $desaturated-dark-cyan;
         font-weight: $font-bold;
-        font-size: 0.8rem;
+        font-size: 0.88rem;
     }
     &__status {
         min-height: 20px;
         background-color: pink;
         border-radius: 15px;
-        margin-left: 10px;
-        padding: 3px 9px 0;
+        margin-left: 15px;
+        padding: 4px 9px 0;
 
         font-weight: $font-bold;
-        font-size: 0.6rem;
+        font-size: 0.65rem;
         line-height: 1.35rem;
         color: #fff;
 
@@ -113,6 +112,7 @@ COMPONENTS
             background-color: $desaturated-dark-cyan;
         }
         &--featured {
+            margin-left: 9px;
             background-color: $very-dark-grayish-cyan;
         }
     }
@@ -120,7 +120,7 @@ COMPONENTS
     &__position:visited {
         text-decoration: none;
         color: $very-dark-grayish-cyan;
-        font-size: 1.1rem;
+        font-size: 1.12rem;
         font-weight: $font-bold;
     }
     &__position:hover {
@@ -128,10 +128,10 @@ COMPONENTS
     }
     &__bottom {
         color: $dark-grayish-cyan;
-        font-size: 0.8rem;
+        font-size: 0.8.5rem;
     }
     &__dot {
-        padding: 0 5px;
+        padding: 0 10px;
     }
     &__filters {
         // Use up all space to stretch container
@@ -156,24 +156,43 @@ COMPONENTS
 .filter-tag {
     border-radius: $page-radius;
     overflow: hidden;
-    background-color: $light-grayish-cyan;
-    font-size: 0.8rem;
-    color: #fff;
 
     // Vert align name and remove elements
     display: inline-flex;
     align-items: center;
 
+    button {
+        font-family: $ff-spartan;
+        font-size: 0.8rem;
+        cursor: pointer;
+
+        border: 2px solid transparent;
+        &:focus {
+            border: 2px solid $very-dark-grayish-cyan;
+        }
+    }
+
+    &--remove {
+        .filter-tag__name:hover {
+            background-color: $light-grayish-cyan;
+            color: $desaturated-dark-cyan;
+        }
+    }
+
     &__name {
         text-decoration: none;
         padding: 0.7em 0.7em 0.5em;
+        background-color: $light-grayish-cyan;
         color: $desaturated-dark-cyan;
         font-weight: $font-bold;
+        &:hover {
+            background-color: $desaturated-dark-cyan;
+            color: #fff;
+        }
     }
     &__remove {
         height: 100%;
         text-decoration: none;
-        // padding: 0.7em 1.1em 0.3em;
         padding: 1em 1.2em;
         color: #fff;
 
@@ -188,10 +207,7 @@ COMPONENTS
         }
     }
 }
-a.filter-tag__name:hover {
-    background-color: $desaturated-dark-cyan;
-    color: #fff;
-}
+
 
 /*==========
 LAYOUT
@@ -202,6 +218,7 @@ LAYOUT
     z-index: -1;
     background: url(../images/bg-header-mobile.svg) repeat-x;
     background-color: $desaturated-dark-cyan;
+    background-position: top center;
     width: 100%;
     height: 156px;
     top: 0;
@@ -214,7 +231,8 @@ LAYOUT
     min-height: 60px;
     margin-top: 126px;
     margin-bottom: 2.5em;
-    padding: 1.3em;
+    padding: 1.3em 1.5em;
+    font-size: 0.8rem;
 
     background-color: #fff;
     border-radius: $page-radius;
@@ -228,7 +246,7 @@ LAYOUT
 
     // Set list and options containers to row
     display: flex;
-    column-gap: 1.5em;
+    column-gap: 1.6em;
 
     &__list {
         flex: 1;
@@ -246,7 +264,6 @@ LAYOUT
     }
     &__clear {
         text-decoration: none;
-        font-size: 0.8rem;
         font-weight: $font-bold;
         color: $dark-grayish-cyan;
 
@@ -292,7 +309,7 @@ DESKTOP
 
     .listing {
         flex-direction: row;
-        column-gap: 1.5em;
+        column-gap: 1.6em;
 
         &__logo {
             position: static;

@@ -274,9 +274,9 @@ function displayFilter(filterName) {
     }
 
     document.getElementById("filterList").insertAdjacentHTML("beforeend", `
-      <div class="filter-tag" data-filter="${filterName}">
+      <div class="filter-tag filter-tag--remove" data-filter="${filterName}">
         <span class="filter-tag__name">${filterName}</span>
-        <a class="filter-tag__remove" href="#" title="Remove"></a>
+        <button class="filter-tag__remove" title="Remove"></button>
       </div>
     `);
 }
@@ -299,10 +299,10 @@ function displayJobPost(job) {
 
     // Collect all tags
     for (let i = 0; i < job.tags.length; i++) {
-        let filterName = job.tags[i];
+        let tagName = job.tags[i];
 
-        tagsHTML[i] = `<div class="filter-tag" data-filter="${filterName}">
-                        <a class="filter-tag__name" href="#" title="${filterName}">${filterName}</a>
+        tagsHTML[i] = `<div class="filter-tag" data-filter="${tagName}">
+                        <button class="filter-tag__name" title="${tagName}">${tagName}</button>
                     </div>`;
     }
 
