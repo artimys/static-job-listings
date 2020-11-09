@@ -200,7 +200,6 @@ let appliedFilters = [];
 const filterContainer = document.getElementById("filterContainer");
 const filterList = document.getElementById("filterList");
 const clearAllFilters = document.getElementById("clearAllFilters");
-
 // Job listing elements
 const jobListingsContainer = document.getElementById("jobListingsContainer");
 
@@ -242,14 +241,23 @@ clearAllFilters.addEventListener("click", function() {
 jobListingsContainer.addEventListener("click", function(event) {
     event.preventDefault();
 
+    // Remove any existing filter messages
+    let filterMessages = document.querySelectorAll("div.filter-message");
+    filterMessages.forEach(messageNode => {
+        messageNode.classList.remove("filter-message--show");
+        messageNode.remove();
+    });
+
     if (event.target.className === "filter-tag__name") {
         let filterNameSelected = event.target.parentElement.dataset.filter.trim();
 
         // Find if filter is already applied
         if (appliedFilters.includes(filterNameSelected)) {
-            // Filter already added
-            // console.log("Already added: ", filterNameSelected);
-            // TODO Popup message that filter is already applied
+            // Filter already added - display message
+            event.target.parentElement.parentElement.insertAdjacentHTML(
+                "afterbegin",
+                `<div class="filter-message filter-message--show">${filterNameSelected} already filtered</div>`
+            );
 
         } else {
 
@@ -362,9 +370,8 @@ function loadJobs(jobs) {
 
 
 
+// Page is fully loaded
 window.addEventListener('load', (event) => {
-    // Page is fully loaded
-
     // Add all job posts on page load
     loadJobs(jobPosts);
 });

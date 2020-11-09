@@ -184,8 +184,8 @@ COMPONENTS
 }
 
 .filter-tag {
-  border-radius: 5px;
   overflow: hidden;
+  border-radius: 5px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -238,6 +238,61 @@ COMPONENTS
   color: #fff;
 }
 
+.filter-message {
+  position: absolute;
+  width: 200px;
+  top: -10px;
+  right: 0;
+  background-color: #fff;
+  color: #2c3a3a;
+  border: 1px solid salmon;
+  border-radius: 4px;
+  padding: 0.8em 0.5em;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.1rem;
+  display: none;
+}
+
+.filter-message--show {
+  display: block;
+  -webkit-animation: messageHide 2.5s 1;
+          animation: messageHide 2.5s 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes messageHide {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  50% {
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes messageHide {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  50% {
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
 /*==========
 LAYOUT
 =========*/
@@ -253,6 +308,7 @@ LAYOUT
 }
 
 .filters {
+  position: relative;
   visibility: hidden;
   max-width: 1109px;
   width: 85%;
