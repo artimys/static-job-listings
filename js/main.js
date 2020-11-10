@@ -325,7 +325,9 @@ function displayJobPost(job) {
                     ${statusBadgesHTML}
                 </div>
                 <div class="listing__middle">
-                    <a href="#" title="${job.title}" class="listing__position">${job.title}</a>
+                    <h2>
+                        <a href="#" title="${job.title}" class="listing__position">${job.title}</a>
+                    </h2>
                 </div>
                 <div class="listing__bottom">
                     <span class="listing__date-posted">${job.datePosted}</span>
